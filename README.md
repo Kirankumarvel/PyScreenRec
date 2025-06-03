@@ -1,107 +1,103 @@
-
 # 🎥 PyScreenRec
 
-**PyScreenRec** is a simple and lightweight screen recorder built with Python. It captures your screen in real-time and saves it as an MP4 video file. Ideal for coding tutorials, walkthroughs, or debugging sessions.
+**PyScreenRec** is a simple, modular Python-based screen recording suite with support for GUI, webcam, and audio capture. Designed for developers, content creators, and educators who want lightweight screen recording tools built with pure Python.
 
 ---
 
-## 🚀 Features
-
-* ✅ Full-screen recording in real-time
-* ✅ Output in `.mp4` format using XVID codec
-* ✅ Press **'q'** anytime to stop recording
-* ✅ Beginner-friendly and minimal setup
-
----
-
-## 🛠 Installation
-
-First, install the required dependencies:
+## 📁 Project Structure
 
 ```bash
-pip install opencv-python pyautogui numpy keyboard
-```
-
-> ⚠️ If you're using Python 3 and `pip` points to Python 2, use `pip3` instead.
-
-If you're having issues with `pyautogui`, run:
-
-```bash
-python -m pip install pyautogui
+PyScreenRec/
+├── requirements.txt                    # Base requirements (for CLI version)
+├── PyScreenRec_GUI/                   # GUI version using PyQt5
+│   ├── PyScreenRec_GUI.py
+│   └── requirements.txt
+├── PyScreenRec_WebCam_Audio/         # Webcam + audio version (CLI)
+│   ├── PyScreenRec_WebCam_Audio.py
+│   └── requirements.txt
 ```
 
 ---
 
-## 💻 How to Use
+## 💡 Features
 
-1. Save the script as `PyScreenRec.py`.
-2. Run it from the terminal or PowerShell:
+* ✅ Fullscreen screen recording
+* ✅ Simple CLI version (base)
+* ✅ GUI version using PyQt5
+* ✅ Webcam + Audio capture version
+* ✅ Lightweight and beginner-friendly
+* ✅ Customizable and open-source
+
+---
+
+## 📦 Setup Instructions
+
+### 🔹 Option 1: Base CLI Screen Recorder
 
 ```bash
+pip install -r requirements.txt
 python PyScreenRec.py
 ```
 
-3. You'll see:
-
-```
-Recording... Press 'q' to stop.
-```
-
-4. Press **q** to stop recording.
-5. The video is saved as `screen_recording.mp4` in your current folder.
+> 📌 Press `q` to stop recording.
 
 ---
 
-## 🧠 Behind the Scenes
+### 🔹 Option 2: GUI Version
 
-```python
-import cv2
-import numpy as np
-import pyautogui
-import keyboard
-
-screen_size = pyautogui.size()
-fps = 20
-fourcc = cv2.VideoWriter_fourcc(*"XVID")
-output_file = "screen_recording.mp4"
-out = cv2.VideoWriter(output_file, fourcc, fps, (screen_size.width, screen_size.height))
-
-print("Recording... Press 'q' to stop.")
-
-while True:
-    screen = pyautogui.screenshot()
-    frame = np.array(screen)
-    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-    out.write(frame)
-    
-    if keyboard.is_pressed('q'):
-        print("Recording stopped.")
-        break
-
-out.release()
-print(f"Video saved to {output_file}")
+```bash
+cd PyScreenRec_GUI
+pip install -r requirements.txt
+python PyScreenRec_GUI.py
 ```
+
+> GUI lets you start/stop with buttons instead of hotkeys.
 
 ---
 
-## ❗ Troubleshooting
+### 🔹 Option 3: Webcam + Audio Recording
 
-* **ModuleNotFoundError: No module named 'pyautogui'**
+```bash
+cd PyScreenRec_WebCam_Audio
+pip install -r requirements.txt
+python PyScreenRec_WebCam_Audio.py
+```
 
-  * Run: `pip install pyautogui`
-* **Keyboard input doesn't stop recording?**
+> 📌 Captures screen + microphone audio + webcam (optional webcam code can be added).
 
-  * Ensure the terminal window is in focus while pressing **q**.
-  * Try running with admin rights if needed on Windows.
-* **Screen recording lag?**
+---
 
-  * Lower the `fps` value in the script (e.g., from 20 to 10).
+## ⚙️ Tech Stack
+
+* Python 3.x
+* `opencv-python`
+* `pyautogui`
+* `numpy`
+* `keyboard`
+* `sounddevice`, `soundfile` (for audio)
+* `PyQt5` (for GUI)
+
+---
+
+## 📌 Notes
+
+* For webcam overlay or audio-video merging into one file, additional tools like `ffmpeg` or `moviepy` may be used.
+* Make sure Python and Pip are added to your system PATH.
+* If you face any `ModuleNotFoundError`, ensure you're installing in the correct Python environment.
+
+---
+
+## 🧪 Coming Soon
+
+* [ ] Audio + webcam merging into single `.mp4`
+* [ ] In-app recording preview
+* [ ] Export formats and resolution control
 
 ---
 
 ## 📃 License
 
-This project is licensed under the [MIT License](LICENSE).
+MIT License – free to use, modify, and distribute.
 
 ---
 
